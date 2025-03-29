@@ -14,6 +14,7 @@ fi
 echo "即将递归删除以下内容："
 echo "1. 所有名为 build 的目录"
 echo "2. 所有名为 CMakeLists.txt 的文件"
+echo "3. 所有名为 open.sh 的文件"
 echo "目标路径: $(realpath "$TARGET_DIR")"
 echo "----------------------------------------"
 read -p "确认删除？(y/n) " -n 1 -r
@@ -26,7 +27,9 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 
   echo "正在删除 CMakeLists.txt 文件..."
   find "$TARGET_DIR" -type f -name "CMakeLists.txt" -exec rm -f {} +
-
+  
+  echo "正在删除 open.sh 文件"
+  find "$TARGET_DIR" -type f -name "open.sh" -exec rm -f {} +
   echo "----------------------------------------"
   echo "清理完成！"
 else

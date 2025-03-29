@@ -26,8 +26,15 @@ project(Test)
 add_executable(a main.cpp)
 EOL
 
+cat <<EOL>"$TARGET_DIR/open.sh"
+termux-open main.cpp
+EOL
+
+
 mkdir -p "$TARGET_DIR/build"
+
+chmod +x "$TARGET_DIR/open.sh"
 
 echo "crate dir successful!"
 
-cd "./$TARGET_DIR"
+cd "$TARGET_DIR"
