@@ -27,6 +27,9 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   
   echo "正在删除 open.sh 文件"
   find "$TARGET_DIR" -type f -name "open.sh" -exec rm -f {} +
+
+  echo "正在删除 main.exe 文件..."
+  find "$TARGET_DIR" -type f -name "main.exe" -exec rm -f {} +
   
 else
   echo "操作已取消"
