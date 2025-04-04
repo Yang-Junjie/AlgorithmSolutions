@@ -33,11 +33,13 @@ if [ $ALT_MODE -eq 1 ]; then
 #include <algorithm>
 #include <iostream>
 #include <string>
+#include <utility>
 using namespace std;
 #define LOG(a) std::cout << "[" << #a << ":" << (a) << "]" << std::endl;
 using i64 = long long int;
 using u64 = unsigned long long int;
 using u32 = unsigned int;
+using PII = pair<int,int>;
 
 void solve(){
 
