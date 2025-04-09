@@ -31,6 +31,8 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   echo "正在删除 main.exe 文件..."
   find "$TARGET_DIR" -type f -name "main.exe" -exec rm -f {} +
   
+  echo "正在删除 .main.cpp.swp..."
+  find "$TARGET_DIR" -type f -name ".main.cpp.swp" -exec rm -f {} +
 else
   echo "操作已取消"
 fi

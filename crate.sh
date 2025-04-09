@@ -65,6 +65,7 @@ else
 #include <algorithm>
 #include <iostream>
 #include <string>
+#include <vector>
 using namespace std;
 #define LOG(a) std::cout << "[" << #a << ":" << (a) << "]" << std::endl;
 
