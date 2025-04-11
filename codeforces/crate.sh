@@ -102,6 +102,7 @@ chmod +x "$TARGET_DIR/open.sh"
 mkdir -p "$TARGET_DIR/build"
 
 cat <<EOL > "$TARGET_DIR/build/execute.sh"
+#!/bin/bash
 cmake .. && make && ./a
 EOL
 
