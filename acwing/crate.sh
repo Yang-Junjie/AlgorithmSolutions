@@ -37,15 +37,23 @@ if [ $ALT_MODE -eq 1 ]; then
 #include <vector>
 #include <numeric>
 using namespace std;
-#define LOG(a) std::cout << "[" << #a << ":" << (a) << "]" << std::endl;
-using i64 = long long int;
-using u64 = unsigned long long int;
-using u32 = unsigned int;
+
+#ifdef DEBUG
+#define LOG(a) cerr << "[" << #a << ":" << (a) << "]" << endl
+#else
+#define LOG(a)
+#endif
+
+#define Len(a) ((int)(a).size())
+#define All(x) (x).begin(), (x).end()
+using ll = long long int;
+using ull = unsigned long long int;
 using PII = pair<int,int>;
+using VI = vector<int>;
 
 void solve(){
-
-
+    
+    
 }
 
 int main(){
@@ -69,11 +77,19 @@ else
 #include <vector>
 #include <numeric>
 using namespace std;
-#define LOG(a) std::cout << "[" << #a << ":" << (a) << "]" << std::endl;
-using i64 = long long int;
-using u64 = unsigned long long int;
-using u32 = unsigned int;
+
+#ifdef DEBUG
+#define LOG(a) cerr << "[" << #a << ":" << (a) << "]" << endl
+#else
+#define LOG(a)
+#endif
+
+#define Len(a) ((int)(a).size())
+#define All(x) (x).begin(), (x).end()
+using ll = long long int;
+using ull = unsigned long long int;
 using PII = pair<int,int>;
+using VI = vector<int>;
 
 int main(){
     ios::sync_with_stdio(false);
