@@ -14,36 +14,34 @@ using PII = pair<int, int>;
 void solve()
 {
     string p, s;
+
     cin >> p >> s;
     int n = p.size(), m = s.size();
-
-    if (m < n || m > 2 * n) {
+    p = '0' + p, s = '0' + s;
+    int l = 1, r = 1, flg = 0;
+    int lcnt = 0, rcnt = 0;
+    while (l <= n && r <= m) {
+        while (l <= n && p[l] == 'L')
+            l++, lcnt++;
+        while (r <= m && s[r] == 'L')
+            r++, rcnt++;
+        if (!(lcnt <= rcnt && rcnt <= lcnt * 2))
+            break;
+        lcnt = 0, rcnt = 0;
+        while (l <= n && p[l] == 'R')
+            l++, lcnt++;
+        while (r <= m && s[r] == 'R')
+            r++, rcnt++;
+        if (!(lcnt <= rcnt && rcnt <= lcnt * 2))
+            break;
+        lcnt = 0, rcnt = 0;
+        if (l > n && r > m)
+            flg = 1;
+    }
+    if (flg)
+        cout << "YES\n";
+    else
         cout << "NO\n";
-        return;
-    }
-
-    bool ok = true;
-    int i = 0, j = 0;
-    while (i < n && j < m) {
-        if (p[i] != s[j]) {
-            cout << "NO\n";
-            return;
-        }
-        int haishen_p = n - i;
-        int haishen_s = m - j;
-        if (haishen_s < haishen_p || haishen_s > 2 * haishen_p) {
-            cout << "NO\n";
-            return;
-        }
-        if (j + 1 < m && s[j + 1] == p[i] && (haishen_s - 2 >= haishen_p - 1)) {
-            j += 2;
-        } else {
-            j += 1;
-        }
-        i += 1;
-    }
-
-    cout << ((i == n && j == m) ? "YES\n" : "NO\n");
 }
 
 int main()
@@ -58,4 +56,3 @@ int main()
 
     return 0;
 }
-
