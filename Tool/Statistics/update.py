@@ -18,7 +18,7 @@ os.makedirs(img_dir, exist_ok=True)
 
 # ----------------- 数据采集模块 -----------------
 def read_directories_from_file(file_path=None):
-    """读取OJ平台目录配置（动态路径处理）"""
+   
     target_path = file_path or os.path.join(config_dir, "OJLists.txt")  # 自动定位配置文件[8](@ref)
     try:
         with open(target_path, 'r', encoding='utf-8') as f:
@@ -28,12 +28,11 @@ def read_directories_from_file(file_path=None):
         return []
 
 def count_main_cpp(directory):
-    """统计题解数量（使用绝对路径）[4](@ref)"""
+    
     abs_dir = os.path.abspath(directory)
     return sum(1 for root, _, files in os.walk(abs_dir) if "main.cpp" in files)
 
 def update_csv(data, csv_path=None):
-    """更新CSV文件（路径动态计算）"""
     csv_path = csv_path or os.path.join(data_dir, "cpp_stats.csv")
     today = datetime.now().strftime('%Y-%m-%d')
     fieldnames = ["日期"] + list(data.keys())
@@ -101,7 +100,7 @@ def plot_activity(csv_path=None):
     plt.legend(bbox_to_anchor=(1.05, 1))
     plt.tight_layout()
     plt.savefig(os.path.join(img_dir, 'activity.png'))
-    
+
 # ----------------- 主流程 -----------------
 if __name__ == "__main__":
     # 动态路径处理
