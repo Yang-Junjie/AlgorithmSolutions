@@ -85,7 +85,12 @@ def plot_activity(csv_path=None):
 
     # 坐标轴优化
     ax = plt.gca()
+    
+    # 设置日期格式化（月-日）
     ax.xaxis.set_major_formatter(mdates.DateFormatter('%m-%d'))
+    # 强制x轴刻度与数据点对齐
+    ax.set_xticks(dates)
+    
     ax.grid(True) 
     plt.gcf().autofmt_xdate()
     
@@ -96,7 +101,7 @@ def plot_activity(csv_path=None):
     plt.legend(bbox_to_anchor=(1.05, 1))
     plt.tight_layout()
     plt.savefig(os.path.join(img_dir, 'activity.png'))
-
+    
 # ----------------- 主流程 -----------------
 if __name__ == "__main__":
     # 动态路径处理
