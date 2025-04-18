@@ -15,7 +15,7 @@ void solve(){
     i64 a,b;
     cin>>a>>b;
     if(b%a==0){
-        cout<<a+b<<endl;
+        cout<<b*b/a<<endl;
     }else{
         cout<<a*b/gcd(a,b)<<endl;
     }

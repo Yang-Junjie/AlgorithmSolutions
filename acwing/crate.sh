@@ -1,5 +1,3 @@
-
-
 #!/bin/bash
 if [ -z "$1" ]; then
     echo "Please provide a directory name!"
@@ -7,11 +5,11 @@ if [ -z "$1" ]; then
 fi
 
 TARGET_DIR=$1
-shift  # 移除目录名参数，处理剩余参数
+shift  # Remove directory name parameter, process remaining
 
 ALT_MODE=0
 
-# 处理可选参数
+# Process optional parameters
 while [[ $# -gt 0 ]]; do
     case "$1" in
         --cf)
@@ -25,84 +23,38 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-mkdir -p "$TARGET_DIR"
+# Find the AlgorithmSolutions/CodeTemplate directory
+current_dir=$(pwd)
+template_dir=""
+while [[ "$current_dir" != "/" ]]; do
+    if [[ -d "$current_dir/AlgorithmTemplate/CodeTemplate" ]]; then
+        template_dir="$current_dir/AlgorithmTemplate/CodeTemplate"
+        break
+    fi
+    current_dir=$(dirname "$current_dir")
+done
 
-# 根据模式生成不同的 main.cpp
-if [ $ALT_MODE -eq 1 ]; then
-    cat <<EOL > "$TARGET_DIR/main.cpp"
-#include <algorithm>
-#include <iostream>
-#include <string>
-#include <utility>
-#include <vector>
-#include <numeric>
-using namespace std;
-
-#ifdef DEBUG
-#define LOG(a) cerr << "[" << #a << ":" << (a) << "]" << endl
-#else
-#define LOG(a)
-#endif
-
-#define Len(a) ((int)(a).size())
-#define All(x) (x).begin(), (x).end()
-using ll = long long int;
-using ull = unsigned long long int;
-using PII = pair<int,int>;
-using VI = vector<int>;
-
-void solve(){
-    
-    
-}
-
-int main(){
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-    int t;
-    cin>>t;
-    while(t--){
-        solve();
-    }
-
-    return 0;
-}
-EOL
-else
-    cat <<EOL > "$TARGET_DIR/main.cpp"
-#include <algorithm>
-#include <iostream>
-#include <string>
-#include <utility>
-#include <vector>
-#include <numeric>
-using namespace std;
-
-#ifdef DEBUG
-#define LOG(a) cerr << "[" << #a << ":" << (a) << "]" << endl
-#else
-#define LOG(a)
-#endif
-
-#define Len(a) ((int)(a).size())
-#define All(x) (x).begin(), (x).end()
-using ll = long long int;
-using ull = unsigned long long int;
-using PII = pair<int,int>;
-using VI = vector<int>;
-
-int main(){
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-    
-    
-
-    return 0;
-}
-EOL
+if [[ -z "$template_dir" ]]; then
+    echo "Could not find AlgorithmTemplate/CodeTemplate directory!"
+    exit 1
 fi
 
-# 其余文件保持不变
+# Determine template file name
+TEMPLATE_FILE="main.cpp"
+if [ $ALT_MODE -eq 1 ]; then
+    TEMPLATE_FILE="maincf.cpp"
+fi
+
+if [[ ! -f "$template_dir/$TEMPLATE_FILE" ]]; then
+    echo "Template file $template_dir/$TEMPLATE_FILE does not exist!"
+    exit 1
+fi
+
+# Create target directory and copy template
+mkdir -p "$TARGET_DIR"
+cp "$template_dir/$TEMPLATE_FILE" "$TARGET_DIR/main.cpp"
+
+# Generate other files (unchanged)
 cat <<EOL > "$TARGET_DIR/CMakeLists.txt"
 cmake_minimum_required(VERSION 3.10.0)
 project(Test)
@@ -126,6 +78,3 @@ chmod +x "$TARGET_DIR/build/execute.sh"
 
 echo "Directory created successfully!"
 cd "$TARGET_DIR"
-
-
-

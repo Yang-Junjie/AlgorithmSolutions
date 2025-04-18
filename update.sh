@@ -36,6 +36,8 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   
   echo "正在删除 .main.cpp.swp..."
   find "$TARGET_DIR" -type f -name ".main.cpp.swp" -exec rm -f {} +
+
+  python3 ./Tool/Statistics/update.py
 else
   echo "操作已取消"
 fi

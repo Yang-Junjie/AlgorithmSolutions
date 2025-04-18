@@ -1,0 +1,114 @@
+import os
+import csv
+from datetime import datetime
+from matplotlib import pyplot as plt
+import matplotlib.dates as mdates
+
+# ----------------- 全局路径配置 -----------------
+script_dir = os.path.dirname(os.path.abspath(__file__))  # 脚本绝对路径[9](@ref)
+config_dir = os.path.join(script_dir, "config")          # 配置文件目录
+data_dir = os.path.join(script_dir, "data")              # 数据存储目录
+img_dir = os.path.join(script_dir, "images")             # 图片输出目录
+base_dir = os.path.normpath(os.path.join(script_dir, "../../"))  # 项目根目录
+
+# 创建必要目录
+os.makedirs(config_dir, exist_ok=True)
+os.makedirs(data_dir, exist_ok=True)
+os.makedirs(img_dir, exist_ok=True)
+
+# ----------------- 数据采集模块 -----------------
+def read_directories_from_file(file_path=None):
+    """读取OJ平台目录配置（动态路径处理）"""
+    target_path = file_path or os.path.join(config_dir, "OJLists.txt")  # 自动定位配置文件[8](@ref)
+    try:
+        with open(target_path, 'r', encoding='utf-8') as f:
+            return [d.strip() for d in f.read().split(',') if d.strip()]
+    except Exception as e:
+        print(f"配置读取失败：{e}")
+        return []
+
+def count_main_cpp(directory):
+    """统计题解数量（使用绝对路径）[4](@ref)"""
+    abs_dir = os.path.abspath(directory)
+    return sum(1 for root, _, files in os.walk(abs_dir) if "main.cpp" in files)
+
+def update_csv(data, csv_path=None):
+    """更新CSV文件（路径动态计算）"""
+    csv_path = csv_path or os.path.join(data_dir, "cpp_stats.csv")
+    today = datetime.now().strftime('%Y-%m-%d')
+    fieldnames = ["日期"] + list(data.keys())
+
+    # 读取/更新数据
+    existing_data = []
+    if os.path.exists(csv_path):
+        with open(csv_path, 'r', encoding='utf-8') as f:
+            reader = csv.DictReader(f)
+            existing_data = list(reader)
+
+    # 更新当天数据
+    found = False
+    for row in existing_data:
+        if datetime.strptime(row["日期"], "%Y-%m-%d").date() == datetime.today().date():
+            row.update(data)
+            found = True
+            break
+    if not found:
+        existing_data.append({"日期": today, **data})
+
+    # 写入文件
+    with open(csv_path, 'w', encoding='utf-8', newline='') as f:
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(sorted(existing_data, 
+            key=lambda x: datetime.strptime(x["日期"], "%Y-%m-%d")))
+
+# ----------------- 可视化模块 -----------------
+def plot_activity(csv_path=None):
+    """绘制活动趋势图（动态路径处理）"""
+    csv_path = csv_path or os.path.join(data_dir, "cpp_stats.csv")
+    
+    dates, platforms = [], {}
+    with open(csv_path, 'r', encoding='utf-8') as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            dates.append(datetime.strptime(row["日期"], '%Y-%m-%d'))
+            for platform in reader.fieldnames[1:]:
+                platforms.setdefault(platform, []).append(int(row[platform]))
+
+    # 绘图配置
+    plt.figure(figsize=(12, 7))
+    markers = ['o', 's', '^', 'd', '*']
+    for idx, (platform, data) in enumerate(platforms.items()):
+        plt.plot(dates, data, 
+                marker=markers[idx%5], 
+                label=platform)
+
+    # 坐标轴优化
+    ax = plt.gca()
+    ax.xaxis.set_major_formatter(mdates.DateFormatter('%m-%d'))
+    ax.grid(True) 
+    plt.gcf().autofmt_xdate()
+    
+    # 输出保存
+    plt.title("The trend of doing practice questions on the OJ platform", fontsize=14)
+    plt.xlabel('Date')
+    plt.ylabel('Number')
+    plt.legend(bbox_to_anchor=(1.05, 1))
+    plt.tight_layout()
+    plt.savefig(os.path.join(img_dir, 'activity.png'))
+
+# ----------------- 主流程 -----------------
+if __name__ == "__main__":
+    # 动态路径处理
+    directories = read_directories_from_file()
+    if not directories:
+        print("无有效目录，请检查 config/OJLists.txt")
+        exit()
+
+    stats = {
+        dir_name: count_main_cpp(os.path.join(base_dir, dir_name)) 
+        for dir_name in directories
+    }
+    update_csv(stats)
+    plot_activity()
+    print("记录已更新")

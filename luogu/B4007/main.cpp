@@ -1,43 +1,43 @@
-#include <algorithm>
-#include <iostream>
-#include <string>
-#include <utility>
-#include <vector>
-#include <numeric>
-using namespace std;
+    #include <algorithm>
+    #include <iostream>
+    #include <string>
+    #include <utility>
+    #include <vector>
+    #include <numeric>
+    using namespace std;
 
-#ifdef DEBUG
-#define LOG(a) cerr << "[" << #a << ":" << (a) << "]" << endl
-#else
-#define LOG(a)
-#endif
+    #ifdef DEBUG
+    #define LOG(a) cerr << "[" << #a << ":" << (a) << "]" << endl
+    #else
+    #define LOG(a)
+    #endif
 
-#define Len(a) ((int)(a).size())
-#define All(x) (x).begin(), (x).end()
-using ll = long long int;
-using ull = unsigned long long int;
-using PII = pair<int, int>;
-using VI = vector<int>;
+    #define Len(a) ((int)(a).size())
+    #define All(x) (x).begin(), (x).end()
+    using ll = long long int;
+    using ull = unsigned long long int;
+    using PII = pair<int, int>;
+    using VI = vector<int>;
 
-int main()
-{
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-    int a;
-    cin >> a;
-    int t;
-    cin >> t;
-    int cnt = 0;
-    for (int i = 1; i <= a; i++)
+    int main()
     {
-        for (auto ch : to_string(i))
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+        int a;
+        cin >> a;
+        int t;
+        cin >> t;
+        int cnt = 0;
+        for (int i = 1; i <= a; i++)
         {
-            if (ch == t + '0')
+            for (auto ch : to_string(i))
             {
-                cnt++;
-            }
-        }    
+                if (ch == t + '0')
+                {
+                    cnt++;
+                }
+            }    
+        }
+        cout<<cnt<<endl;
+        return 0;
     }
-    cout<<cnt<<endl;
-    return 0;
-}
