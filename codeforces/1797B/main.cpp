@@ -65,7 +65,7 @@ void solve()
         k-=cnt;
         if(n%2==1){
             cout<<"YES"<<endl;
-        }else if(k&1){
+        }else if(k%2==1){
             cout<<"NO"<<endl;
         }else{
             cout<<"YES"<<endl;
