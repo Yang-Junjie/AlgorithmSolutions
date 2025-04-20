@@ -39,7 +39,12 @@ using VI = vector<int>;
 int main(){
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    
+    string n;
+    cin>>n;
+    int k;
+    cin>>k;
+    reverse(ALL(n));
+    cout<<a[k-1]<<endl;
     
 
     return 0;

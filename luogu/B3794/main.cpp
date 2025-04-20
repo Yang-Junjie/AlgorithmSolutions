@@ -39,8 +39,11 @@ using VI = vector<int>;
 int main(){
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    
-    
+    double ans = 0;
+    double a,b,c;
+    cin>>a>>b>>c;
+    ans+=((a+c)*(b+c)-(c*c)+0.25*(c*c*3.1415926535))*0.0001;
+    cout<<setprecision(3)<<fixed<<ans<<endl;
 
     return 0;
 }

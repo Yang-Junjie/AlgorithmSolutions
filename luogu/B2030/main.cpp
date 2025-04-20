@@ -5,8 +5,8 @@
 #include <vector>
 #include <numeric>
 #include <limits>
-#include <iomanip>
 #include <cmath>
+#include <iomanip>
 using namespace std;
 
 
@@ -39,7 +39,9 @@ using VI = vector<int>;
 int main(){
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    
+    double x,y,a,b;
+    cin>>x>>y>>a>>b;
+    cout<<setprecision(2)<<fixed<<sqrt((x-a)*(x-a)+(y-b)*(y-b))<<endl;
     
 
     return 0;

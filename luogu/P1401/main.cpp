@@ -5,8 +5,6 @@
 #include <vector>
 #include <numeric>
 #include <limits>
-#include <iomanip>
-#include <cmath>
 using namespace std;
 
 
@@ -39,8 +37,13 @@ using VI = vector<int>;
 int main(){
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    
-    
+    ll a,b,c,d;
+    cin>>a>>b>>c>>d;
+	if(a*c<-2147483648||a*c>2147483647||b*d<-2147483648||b*d>2147483647||a*d<-2147483648||a*d>2147483647||b*c<-2147483648||b*c>2147483647){
+		cout<<"long long int";
+	}else{
+		cout<<"int";
+	}
 
     return 0;
 }
