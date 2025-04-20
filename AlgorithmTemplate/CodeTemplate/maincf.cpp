@@ -4,6 +4,8 @@
 #include <utility>
 #include <vector>
 #include <numeric>
+#include <limits>
+#include <cmath>
 using namespace std;
 
 #ifdef DEBUG
@@ -16,7 +18,7 @@ void PrintCon(const Container& cont) {
         auto it = cont.begin();
         std::cout <<"\033[33m"<< *it++<< "\033[0m";
         for (; it != cont.end(); ++it)
-            std::cout << " | " << *it;
+            std::cout << " | " <<"\033[33m"<< *it++<< "\033[0m";
     }
     std::cout << " }" << std::endl;
 }
@@ -33,8 +35,7 @@ using PII = pair<int,int>;
 using VI = vector<int>;
 
 void solve(){
-    
-    
+
 }
 
 int main(){

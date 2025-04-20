@@ -4,8 +4,9 @@
 #include <utility>
 #include <vector>
 #include <numeric>
+#include <limits>
+#include <cmath>
 using namespace std;
-
 
 #ifdef DEBUG
 #define LOG1(a) cerr << "[" << #a << ":" << (a) << "]" << endl
@@ -33,11 +34,27 @@ using ull = unsigned long long int;
 using PII = pair<int,int>;
 using VI = vector<int>;
 
+void solve(){
+    char ch;
+    cin>>ch;
+    string a = "codeforces";
+    bool no = false;
+    for(int i = 0;i<a.size();i++){
+        if(ch==a[i]){
+            no =true;
+        }
+    }    
+    cout<<(!no?"NO":"YES")<<endl;
+}
+
 int main(){
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    
-    
+    int t;
+    cin>>t;
+    while(t--){
+        solve();
+    }
 
     return 0;
 }

@@ -4,8 +4,9 @@
 #include <utility>
 #include <vector>
 #include <numeric>
+#include <limits>
+#include <cmath>
 using namespace std;
-
 
 #ifdef DEBUG
 #define LOG1(a) cerr << "[" << #a << ":" << (a) << "]" << endl
@@ -33,11 +34,38 @@ using ull = unsigned long long int;
 using PII = pair<int,int>;
 using VI = vector<int>;
 
+void solve(){
+    int n;
+    cin>>n;
+    string s;
+    cin>>s;
+    int x=0,y=0;
+    bool is_ans = false;
+    for(int i = 0;i<s.size();i++){
+        if(s[i]=='U'){
+            y++;
+        }else if(s[i]=='D'){
+            y--;
+        }else if(s[i]=='L'){
+            x--;
+        }else if(s[i]=='R'){
+            x++;
+        }
+        if(x==1&&y==1){
+            is_ans = true;
+        }
+    }
+    cout<<(is_ans?"YES":"NO")<<endl;
+}   
+
 int main(){
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    
-    
+    int t;
+    cin>>t;
+    while(t--){
+        solve();
+    }
 
     return 0;
 }
