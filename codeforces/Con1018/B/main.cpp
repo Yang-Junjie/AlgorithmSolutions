@@ -36,42 +36,6 @@ using VI = vector<int>;
 
 void solve()
 {
-    // int n, k;
-    // cin >> n >> k;
-    // vector<int> l(n);
-    // vector<int> r(n);
-    // vector<int> vis(n);//1 na r 0 na l
-    // int ans = 0;
-    // for (int i = 0; i < n; i++)
-    // {
-    //     cin >> l[i];
-    // }
-    // for (int i = 0; i < n; i++)
-    // {
-    //     cin >> r[i];
-    // }
-    // for (int i = 0; i < n; i++)
-    // {
-    //     if (r[i] > l[i])
-    //     {
-    //         ans += r[i];
-    //         vis[i] = 1;
-    //     }else{
-    //         ans += l[i];
-    //         vis[i] = 0;
-    //     }
-    // }
-    // int cnt = 0;
-    // k--;
-    // while(k--){
-    //     if(vis[cnt]){
-    //         ans +=l[cnt];
-    //     }else{
-    //         ans+=r[cnt];
-    //     }
-    //     cnt++;
-    // }
-    // cout<<ans+1<<endl;
     int n, k;
     cin >> n >> k;
     vector<int> l(n);
@@ -84,29 +48,20 @@ void solve()
     }
 
     vector<int> minv(n);
-    ll smax = 0;
+    ll ans = 0;
     for (int i = 0; i < n; ++i) {
-        smax += max(l[i], r[i]);
+        ans += max(l[i], r[i]);
         minv[i] = min(l[i], r[i]);
     }
-
     sort(ALL(minv), greater<int>());
-    vector<ll> psum(n + 1, 0);
-    for (int i = 0; i < n; ++i) {
-        psum[i + 1] = psum[i] + minv[i];
-    }
-
-    ll ans = 0;
-    for (int t = 0; t < k; ++t) {
-        if (t > n) break;
-        ll h = smax + psum[t];
-        if (h > ans) {
-            ans = h;
-        }
+    
+    for (int i = 0; i < k - 1; ++i) {
+        ans+=minv[i];
     }
 
     cout << ans + 1 << '\n';
 }
+
 
 int main()
 {

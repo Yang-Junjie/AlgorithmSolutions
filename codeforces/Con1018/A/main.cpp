@@ -37,32 +37,22 @@ void solve(){
     string s;
     cin >> n >> s;
     vector<int> ans;
-    vector<bool> vis(n + 1, false);
     int cnt = 1;
     int maxm = n;
-
     for (int i = n - 2; i >= 0; --i) {
         if (s[i] == '<') {
             ans.push_back(cnt);
-            vis[cnt] = true;
             cnt++;
         } else {
             ans.push_back(maxm);
-            vis[maxm] = true;
             maxm--;
         }
     }
-    for (int i = 1; i <= n; ++i) {
-        if (!vis[i]) {
-            ans.push_back(i);
-            break;
-        }
-    }
+    ans.push_back(maxm);
 
     reverse(ans.begin(), ans.end());
     for (int i = 0; i < n; ++i) {
-        cout << ans[i];
-        if (i < n - 1) cout << ' ';
+        cout << ans[i]<<' ';
     }
     cout << '\n';
 }

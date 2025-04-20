@@ -39,7 +39,7 @@ int main(){
     int n;
     cin>>n;
     VI a(n);
-    for(auto i:a){
+    for(auto& i:a){
         cin>>i;
     }
     cout<<*max_element(ALL(a))<<endl;
