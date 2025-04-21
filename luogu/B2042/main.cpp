@@ -24,7 +24,6 @@ void PrintCon(const Container& cont) {
     }
     std::cout << " }" << std::endl;
 }
-
 #else
 #define LOG(a)
 #endif
@@ -39,7 +38,9 @@ using VI = vector<int>;
 int main(){
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    
+    ll n;
+    cin>>n;
+    cout<<(n%3==0&&n%5==0?"YES":"NO")<<endl;
     
 
     return 0;

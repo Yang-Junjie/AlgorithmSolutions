@@ -41,7 +41,7 @@ int main(){
     cin.tie(nullptr);
     double x,y,a,b;
     cin>>x>>y>>a>>b;
-    cout<<setprecision(2)<<fixed<<sqrt((x-a)*(x-a)+(y-b)*(y-b))<<endl;
+    cout<<setprecision(3)<<fixed<<sqrt((x-a)*(x-a)+(y-b)*(y-b))<<endl;
     
 
     return 0;

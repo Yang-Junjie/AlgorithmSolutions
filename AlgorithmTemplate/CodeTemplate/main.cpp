@@ -9,10 +9,7 @@
 #include <cmath>
 using namespace std;
 
-
 #ifdef DEBUG
-#define LOG1(a) cerr << "[" << #a << ":" << (a) << "]" << endl
-#define LOG2(a,b) cerr << "[" << #a << ":" << (a) <<","<< #b << ":" << (b) << "]" << endl
 template<typename Container>
 void PrintCon(const Container& cont) {
     std::cout << "{ ";
@@ -20,13 +17,23 @@ void PrintCon(const Container& cont) {
         auto it = cont.begin();
         std::cout <<"\033[33m"<< *it++<< "\033[0m";
         for (; it != cont.end(); ++it)
-            std::cout << " | " <<"\033[33m"<< *it++<< "\033[0m";
+            std::cout << " | " <<"\033[33m"<< *it<< "\033[0m";
     }
     std::cout << " }" << std::endl;
 }
 
+template<typename... Args>
+void LOG(Args&&... values) {
+    ((std::cout <<"\033[33m"<< std::forward<Args>(values) << "\033[0m"<< " "), ...);
+    std::cout << std::endl;
+}
+
 #else
-#define LOG(a)
+template<typename ...Args>
+void LOG(Args& ...args);
+
+template<typename Container>
+void PrintCon(const Container& cont);
 #endif
 
 #define LEN(a) ((int)(a).size())
