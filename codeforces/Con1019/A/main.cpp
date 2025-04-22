@@ -1,12 +1,15 @@
 #include <algorithm>
+#include <cstdio>
 #include <iostream>
 #include <string>
+#include <sys/types.h>
 #include <utility>
 #include <vector>
 #include <numeric>
 #include <limits>
 #include <cmath>
 #include <iomanip>
+#include <set>
 using namespace std;
 
 #ifdef DEBUG
@@ -43,7 +46,15 @@ using PII = pair<int,int>;
 using VI = vector<int>;
 
 void solve(){
-
+    int n;
+    cin>>n;
+    set<int> a;
+    for(int i = 0;i<n;i++){
+        int tmp;
+        cin>>tmp;
+        a.insert(tmp);
+    }
+    cout<<a.size()<<endl;
 }
 
 int main(){
