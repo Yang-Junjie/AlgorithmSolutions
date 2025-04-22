@@ -51,22 +51,20 @@ void solve()
     cin >> n >> s;
     s='0'+s;
     int cnt = 0;
-    vector<char> tans;
     for (int i = 1; i <= n; i++) {
-        if (s[i] != s[i + 1]) {
+        if (s[i] != s[i - 1]) {
             cnt++;
-            tans.push_back(s[i]);
         }
     }
-    cnt+=n;
-     if(tans.size()>2) {
-        cnt -= 2;
-    }else if ( tans.size() == 2&&tans[0]=='1'&&tans[1]=='0') {
+    if(cnt==2){
         cnt--;
-    } 
-
+    }else if(cnt>2){
+        cnt-=2;
+    }
+    cnt+=n;
     cout << cnt << endl;
 }
+
 int main()
 {
     ios::sync_with_stdio(false);
