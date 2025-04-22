@@ -9,7 +9,7 @@
 // #include <iomanip>
 #include <bits/stdc++.h>
 using namespace std;
-
+#define DEBUG
 #ifdef DEBUG
 template<typename Container>
 void PrintCon(const Container& cont) {
@@ -44,7 +44,32 @@ using PII = pair<int,int>;
 using VI = vector<int>;
 
 void solve(){
-
+    int n;
+    cin>>n;
+    vector<int> a(n);
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+    }
+    sort(ALL(a));
+    int l=0,r=n-1;
+    vector<int> ans(n);
+    int cnt = 0;
+    while(l<r)
+    {
+        ans[cnt++] = a[l];
+        ans[cnt++] = a[r];
+        l++;
+        r--;
+    }
+    if(n&1){
+        ans[cnt++]=a[l];
+    }
+    reverse(ALL(ans));
+    for(int i = 0;i<n;i++)
+    {
+        cout<<ans[i]<<' ';
+    }
+    cout<<endl;
 }
 
 int main(){

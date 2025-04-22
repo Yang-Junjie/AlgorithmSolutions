@@ -44,7 +44,22 @@ using PII = pair<int,int>;
 using VI = vector<int>;
 
 void solve(){
-
+    int n;
+    cin>>n;
+    if(n==1){
+        cout<<1<<endl;
+        return;
+    }
+    if(n&1){
+        cout<<-1<<endl;
+        return;
+    }
+    cout<<n<<' ';
+    for(int i = 1;i<n;i++){
+        if(i%2==1)cout<<n-i<<' ';
+			else cout<<i<<' ';
+    }
+    cout<<endl;
 }
 
 int main(){
