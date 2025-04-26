@@ -16,6 +16,8 @@ using ll = long long int;
 using ull = unsigned long long int;
 using PII = pair<int,int>;
 
+#define DEBUG
+
 #ifdef DEBUG
 template<typename Container>
 void PrintCon(const Container& cont) {

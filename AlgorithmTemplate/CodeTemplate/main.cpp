@@ -14,6 +14,11 @@ using namespace std;
 
 
 #define ALL(x) (x).begin(), (x).end()
+#define MAXV(a,l,r) *max_element((a).begin()+(l),(a).end()+(r))
+#define MINV(a,l,r) *min_element((a).begin()+(l),(a).end()+(r))
+
+
+
 using ll = long long int;
 using ull = unsigned long long int;
 using PII = pair<int,int>;
@@ -39,11 +44,12 @@ void LOG(Args&&... values) {
 }
 
 #else
+
 template<typename ...Args>
 void LOG(Args& ...args);
-
 template<typename Container>
 void PrintCon(const Container& cont);
+
 #endif
 
 
