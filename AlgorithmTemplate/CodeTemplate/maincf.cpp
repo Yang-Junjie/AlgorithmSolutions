@@ -10,6 +10,12 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+
+#define ALL(x) (x).begin(), (x).end()
+using ll = long long int;
+using ull = unsigned long long int;
+using PII = pair<int,int>;
+
 #ifdef DEBUG
 template<typename Container>
 void PrintCon(const Container& cont) {
@@ -36,12 +42,6 @@ template<typename Container>
 void PrintCon(const Container& cont);
 #endif
 
-#define LEN(a) ((int)(a).size())
-#define ALL(x) (x).begin(), (x).end()
-using ll = long long int;
-using ull = unsigned long long int;
-using PII = pair<int,int>;
-using VI = vector<int>;
 
 void solve(){
 

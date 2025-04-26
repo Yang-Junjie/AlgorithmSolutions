@@ -11,12 +11,10 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define LEN(a) ((int)(a).size())
 #define ALL(x) (x).begin(), (x).end()
 using ll = long long int;
 using ull = unsigned long long int;
 using PII = pair<int, int>;
-using VI = vector<int>;
 
 #define DEBUG
 #ifdef DEBUG
@@ -34,7 +32,6 @@ void PrintCon(const Container &cont)
     std::cout << " }" << std::endl;
 }
 
-
 template <typename... Args>
 void LOG(Args &&...values)
 {
@@ -50,38 +47,26 @@ template <typename Container>
 void PrintCon(const Container &cont);
 #endif
 
-
-struct Data
-{
-    int s;
-    int e;
-};
 int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    int n;
-    cin >> n;
-    vector<Data> a(n);
-    for (int i = 0; i < n; i++)
+    int n, x;
+    cin >> n >> x;
+    vector<ll> a(n+1);
+    ll ans = 0;
+    for (int i = 1; i <= n; i++)
     {
-        cin >> a[i].s >> a[i].e;
+        cin >> a[i];
     }
-    sort(ALL(a), [](Data a, Data b)
-         { return a.s < b.s; });
-
-    Data p = a[0];
-    int ans = 1;
-    for (int i = 0; i < n; i++)
+    for (int i = 1; i <= n; i++)
     {
-        if (p.e <= a[i].s)
-        {
-            ans++;
-            p = a[i];
+        int sum = a[i-1] + a[i];
+        if (sum > x) {
+            a[i] -= sum - x;
+            ans += sum - x;
         }
     }
-
-    cout << ans << endl;
-
+    cout<<ans<<endl;
     return 0;
 }

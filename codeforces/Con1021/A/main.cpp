@@ -5,20 +5,16 @@
 // #include <vector>
 // #include <numeric>
 // #include <limits>
-// #include <iomanip>
 // #include <cmath>
-// #include <set>
+// #include <iomanip>
 #include <bits/stdc++.h>
 using namespace std;
 
-#define LEN(a) ((int)(a).size())
 #define ALL(x) (x).begin(), (x).end()
 using ll = long long int;
 using ull = unsigned long long int;
 using PII = pair<int, int>;
-using VI = vector<int>;
 
-#define DEBUG
 #ifdef DEBUG
 template <typename Container>
 void PrintCon(const Container &cont)
@@ -34,14 +30,12 @@ void PrintCon(const Container &cont)
     std::cout << " }" << std::endl;
 }
 
-
 template <typename... Args>
 void LOG(Args &&...values)
 {
     ((std::cout << "\033[33m" << std::forward<Args>(values) << "\033[0m" << " "), ...);
     std::cout << std::endl;
 }
-
 #else
 template <typename... Args>
 void LOG(Args &...args);
@@ -50,38 +44,41 @@ template <typename Container>
 void PrintCon(const Container &cont);
 #endif
 
-
-struct Data
+void solve()
 {
-    int s;
-    int e;
-};
+    string s;
+    cin>>s;
+    vector<char> a(s.begin(), s.end());
+    sort(a.begin(), a.end());
+    vector<char> ans;
+    for (int i = 1; i <= 10; ++i)
+    {
+        int mn = 10 - i;
+        for (int j = 0;j<a.size();j++)
+        {
+            if (a[j] - '0' >= mn)
+            {
+                ans.push_back(a[j]);
+                a.erase(a.begin()+j);
+                break;
+            }
+        }
+    }
+
+    ans.insert(ans.end(), a.begin(), a.end());
+    cout<<string(ALL(ans))<<endl;
+}
+
 int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    int n;
-    cin >> n;
-    vector<Data> a(n);
-    for (int i = 0; i < n; i++)
+    int t;
+    cin >> t;
+    while (t--)
     {
-        cin >> a[i].s >> a[i].e;
+        solve();
     }
-    sort(ALL(a), [](Data a, Data b)
-         { return a.s < b.s; });
-
-    Data p = a[0];
-    int ans = 1;
-    for (int i = 0; i < n; i++)
-    {
-        if (p.e <= a[i].s)
-        {
-            ans++;
-            p = a[i];
-        }
-    }
-
-    cout << ans << endl;
 
     return 0;
 }
