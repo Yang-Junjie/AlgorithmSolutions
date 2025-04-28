@@ -12,6 +12,10 @@ using namespace std;
 
 
 #define ALL(x) (x).begin(), (x).end()
+#define MAXV(a, l, r) *std::max_element((a).begin() + (l), (a).begin() + (r))
+#define MINV(a, l, r) *std::min_element((a).begin() + (l), (a).begin() + (r))
+
+
 using ll = long long int;
 using ull = unsigned long long int;
 using PII = pair<int,int>;
