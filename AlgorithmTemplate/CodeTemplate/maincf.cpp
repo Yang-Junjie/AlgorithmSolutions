@@ -1,12 +1,3 @@
-// #include <algorithm>
-// #include <iostream>
-// #include <string>
-// #include <utility>
-// #include <vector>
-// #include <numeric>
-// #include <limits>
-// #include <cmath>
-// #include <iomanip>
 #include <bits/stdc++.h>
 using namespace std;
 
