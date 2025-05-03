@@ -8,12 +8,12 @@ const int N = 1e3;
 vector<int> high_precision_addition(vector<int> a, vector<int> b)
 {
     vector<int> c(N, 0);
-    int g = 0;//储存进位
+    int g = 0; // 储存进位
     for (int i = 0; i < N; i++) {
-        c[i] = a[i] + b[i] + g;//不管三七二十一直接将这一位上的数相加，包括进位，后面再来处理进位。
-        //处理进位
-        g = c[i] / 10;//得到下一位的进位
-        c[i] %= 10;//只保留当前位上的个位
+        c[i] = a[i] + b[i] + g; // 不管三七二十一直接将这一位上的数相加，包括进位，后面再来处理进位。
+        // 处理进位
+        g = c[i] / 10; // 得到下一位的进位
+        c[i] %= 10; // 只保留当前位上的个位
     }
     return c;
 }

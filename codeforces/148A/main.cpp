@@ -12,11 +12,10 @@ using PII = pair<int, int>;
 #define DEBUG
 #ifdef DEBUG
 template <typename Container>
-void PrintCon(const Container &cont)
+void PrintCon(const Container& cont)
 {
     std::cout << "{ ";
-    if (!cont.empty())
-    {
+    if (!cont.empty()) {
         auto it = cont.begin();
         std::cout << "\033[33m" << *it++ << "\033[0m";
         for (; it != cont.end(); ++it)
@@ -26,7 +25,7 @@ void PrintCon(const Container &cont)
 }
 
 template <typename... Args>
-void LOG(Args &&...values)
+void LOG(Args&&... values)
 {
     ((std::cout << "\033[33m" << std::forward<Args>(values) << "\033[0m" << " "), ...);
     std::cout << std::endl;
@@ -35,32 +34,25 @@ void LOG(Args &&...values)
 #else
 
 template <typename... Args>
-void LOG(Args &...args);
+void LOG(Args&... args);
 template <typename Container>
-void PrintCon(const Container &cont);
+void PrintCon(const Container& cont);
 
 #endif
-long long f(long long s)
-{
-    if (s < 0)
-        s = -s;
-    return s;
-}
 
 int main()
 {
     ios::sync_with_stdio(false);
-    cin.tie(nullptr);                                                           
-    long long a, b, x, y;
-    cin >> a >> b >> x >> y;
-    if (a == x)
-        cout << a + f(b - y) << " " << b << " " << x + f(b - y) << " " << y;
-    else if (b == y)
-        cout << a << " " << b + f(a - x) << " " << x << " " << y + f(a - x);
-    else if (f(a - x) == f(b - y))
-        cout << a << " " << y << " " << x << " " << b;
-    else
-        cout << -1;
-
+    cin.tie(nullptr);
+    int k, l, m, n, d;
+    cin >> k >> l >> m >> n >> d;
+    vector<int> a(d + 1);
+    int cnt = 0;
+    for (int i = 1; i <= d; i++) {
+        if (i % k == 0 || i % l == 0 || i % m == 0 || i % n == 0) {
+            cnt++;
+        }
+    }
+    cout <<  cnt << endl;
     return 0;
 }

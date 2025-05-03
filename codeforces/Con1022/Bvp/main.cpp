@@ -10,13 +10,13 @@ using ull = unsigned long long int;
 using PII = pair<int, int>;
 
 #define DEBUG
+
 #ifdef DEBUG
 template <typename Container>
-void PrintCon(const Container &cont)
+void PrintCon(const Container& cont)
 {
     std::cout << "{ ";
-    if (!cont.empty())
-    {
+    if (!cont.empty()) {
         auto it = cont.begin();
         std::cout << "\033[33m" << *it++ << "\033[0m";
         for (; it != cont.end(); ++it)
@@ -26,41 +26,49 @@ void PrintCon(const Container &cont)
 }
 
 template <typename... Args>
-void LOG(Args &&...values)
+void LOG(Args&&... values)
 {
     ((std::cout << "\033[33m" << std::forward<Args>(values) << "\033[0m" << " "), ...);
     std::cout << std::endl;
 }
-
 #else
-
 template <typename... Args>
-void LOG(Args &...args);
+void LOG(Args&... args);
+
 template <typename Container>
-void PrintCon(const Container &cont);
-
+void PrintCon(const Container& cont);
 #endif
-long long f(long long s)
-{
-    if (s < 0)
-        s = -s;
-    return s;
-}
 
+void solve()
+{
+    int n, x;
+    cin >> n >> x;
+    int cnt = __builtin_popcountll(x);
+    if (n <= cnt)
+        cout << x << endl;
+    else {
+        n -= cnt;
+        if (!(n & 1)) {
+            cout << x + n << endl;
+        } else {
+            if (x == 0 && n == 1)
+                cout << -1 << endl;
+            else if (x <= 1)
+                cout << x + n + 3 << endl;
+            else
+                cout << x + n + 1 << endl;
+        }
+    }
+}
 int main()
 {
     ios::sync_with_stdio(false);
-    cin.tie(nullptr);                                                           
-    long long a, b, x, y;
-    cin >> a >> b >> x >> y;
-    if (a == x)
-        cout << a + f(b - y) << " " << b << " " << x + f(b - y) << " " << y;
-    else if (b == y)
-        cout << a << " " << b + f(a - x) << " " << x << " " << y + f(a - x);
-    else if (f(a - x) == f(b - y))
-        cout << a << " " << y << " " << x << " " << b;
-    else
-        cout << -1;
+    cin.tie(nullptr);
+    int t;
+    cin >> t;
+    while (t--) {
+        solve();
+    }
 
     return 0;
 }
