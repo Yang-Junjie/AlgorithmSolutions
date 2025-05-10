@@ -40,37 +40,50 @@ template <typename Container>
 void PrintCon(const Container &cont);
 
 #endif
-int n, m;
-ll find(int x, vector<int> a)
+ll n, m;
+bool check(ll mid, vector<ll> a)
+{
+    ll cnt = 0;
+    for (auto i : a)
+    {
+        if (i > mid)
+        {
+            cnt += i - mid;
+        }
+    }
+
+    return cnt >= m;
+}
+
+int BS(int l, int r, vector<ll> a)
 {
     int mid;
-    int l = -1, r = n;
     while (l + 1 != r)
     {
         mid = l + r >> 1;
-        if (a[mid] >= x)
-            r = mid;
-        else
+        if (check(mid, a))
+        {
             l = mid;
+        }
+        else
+        {
+            r = mid;
+        }
     }
-    LOG(a[l], l, r, mid);
-    if (a[r] == x)
-        return r;
-    else
-        return -1;
+    return l;
 }
 
 int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    cin >> n;
-    vector<int> a(n);
+    cin >> n >> m;
+    vector<ll> a(n);
     for (auto &i : a)
     {
         cin >> i;
     }
+    cout << BS(0, MAXV(a, 0, n)+1, a) << endl;
 
-    cout << find(5, a) << endl;
     return 0;
 }
