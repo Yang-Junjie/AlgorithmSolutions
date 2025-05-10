@@ -94,117 +94,13 @@ def plot_activity(csv_path=None):
     plt.gcf().autofmt_xdate()
     
     # 输出保存
-    plt.title("The trend of doing practice questions on the OJ platform", fontsize=14)
+    plt.title(f"The trend of doing practice questions on the OJ platform(Total Solved:{sum(data[-1] for data in platforms.values())})", fontsize=14)
     plt.xlabel('Date')
     plt.ylabel('Number')
     plt.legend(bbox_to_anchor=(1.05, 1))
     plt.tight_layout()
     plt.savefig(os.path.join(img_dir, 'activity.png'))
 
-
-
-# ... (保持原有路径配置和数据采集模块不变) ...
-
-# ----------------- 修改后的可视化模块 -----------------
-def calculate_deltas(data_list):
-    """计算相邻数据点之间的差值"""
-    deltas = [0]  # 第一个数据点没有变化量
-    for i in range(1, len(data_list)):
-        deltas.append(data_list[i] - data_list[i-1])
-    return deltas
-
-def plot_platform_deltas(csv_path=None):
-    """生成每个平台的差值变化图"""
-    csv_path = csv_path or os.path.join(data_dir, "cpp_stats.csv")
-    
-    # 数据存储结构
-    platform_data = defaultdict(lambda: {
-        'daily': {'dates': [], 'counts': []},
-        'monthly': {'months': [], 'counts': []}
-    })
-
-    # 处理原始数据
-    with open(csv_path, 'r', encoding='utf-8') as f:
-        reader = csv.DictReader(f)
-        platforms = reader.fieldnames[1:]
-        
-        for row in reader:
-            date = datetime.strptime(row["日期"], "%Y-%m-%d")
-            month = date.strftime("%Y-%m")
-            
-            for platform in platforms:
-                # 记录日维度原始数据
-                data = platform_data[platform]
-                data['daily']['dates'].append(date)
-                data['daily']['counts'].append(int(row[platform]))
-                
-                # 记录月维度原始数据（先累积）
-                if month not in data['monthly']['months']:
-                    data['monthly']['months'].append(month)
-                    data['monthly']['counts'].append(0)
-                month_idx = data['monthly']['months'].index(month)
-                data['monthly']['counts'][month_idx] += int(row[platform])
-
-    # 为每个平台生成图表
-    for platform, data in platform_data.items():
-        # 计算差值
-        daily_deltas = calculate_deltas(data['daily']['counts'])  # 日变化量
-        monthly_counts = data['monthly']['counts']
-        monthly_deltas = calculate_deltas(monthly_counts)  # 月变化量
-        
-        # 创建画布
-        plt.figure(figsize=(14, 6))
-        
-        # ---------- 左图：月差值变化 ----------
-        ax1 = plt.subplot(1, 2, 1)
-        months = data['monthly']['months'][1:]  # 排除第一个月（没有变化量）
-        
-        # 使用双色区分增/减
-        colors = ['#2ca02c' if d >=0 else '#d62728' for d in monthly_deltas[1:]]
-        bars = ax1.bar(months, monthly_deltas[1:], color=colors, alpha=0.7)
-        
-        # 添加数值标签
-        for bar in bars:
-            height = bar.get_height()
-            ax1.text(bar.get_x() + bar.get_width()/2., height,
-                    f'{height:+}', ha='center', va='bottom')
-        
-        ax1.set_title(f"Monthly Changes - {platform}")
-        ax1.set_ylabel("Δ Submissions")
-        ax1.grid(axis='y', alpha=0.3)
-        
-        # ---------- 右图：日差值变化 ----------
-        ax2 = plt.subplot(1, 2, 2)
-        recent_dates = [d.strftime("%m-%d") for d in data['daily']['dates'][-7:]]
-        recent_deltas = daily_deltas[-7:]
-        
-        # 添加趋势线
-        ax2.plot(recent_dates, recent_deltas, 'b--', alpha=0.5, label='Trend')
-        bars_daily = ax2.bar(recent_dates, recent_deltas, 
-                           color=np.where(np.array(recent_deltas)>=0, '#1f77b4', '#ff7f0e'),
-                           alpha=0.7)
-        
-        # 显示特殊数据点
-        for bar in bars_daily:
-            height = bar.get_height()
-            if abs(height) > (max(recent_deltas)*0.5):  # 标记显著变化
-                ax2.text(bar.get_x() + bar.get_width()/2., height,
-                        f'{height}', ha='center', va='bottom',
-                        fontweight='bold')
-        
-        ax2.set_title(f"Daily Changes - {platform}")
-        ax2.set_ylabel("Δ Submissions")
-        ax2.legend()
-        ax2.grid(axis='y', alpha=0.3)
-        
-        # 优化布局
-        plt.tight_layout()
-        
-        # 保存图表
-        safe_name = platform.replace(" ", "_").replace("/", "-")
-        plt.savefig(os.path.join(img_dir, f"{safe_name}_deltas.png"), dpi=150)
-        plt.close()
-        
 
 # ----------------- 主流程 -----------------
 if __name__ == "__main__":
@@ -220,5 +116,4 @@ if __name__ == "__main__":
     }
     update_csv(stats)
     plot_activity()
-    plot_platform_deltas()
     print("记录已更新")
