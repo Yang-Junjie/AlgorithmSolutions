@@ -40,53 +40,33 @@ template <typename Container>
 void PrintCon(const Container &cont);
 
 #endif
-ll n, k;
-
-// 给出长度mid的情况下的段数
-ll check(ll l, const vector<ll> &a)
-{
-    if (l == 0)
-    {
-        return -1;
-    }
-    ll cnt = 0;
-    for (auto i : a)
-    {
-        cnt += i / l;
-    }
-    return cnt;
-}
-ll BS(const vector<ll> &a)
-{
-    ll l = -1, r = MAXV(a, 0, a.size()) + 1;
-    while (l + 1 != r)
-    {
-        ll mid = (l + r) / 2;
-        if (check(mid, a) < k)
-        {
-            r = mid;
-        }
-        else
-        {
-            l = mid;
-        }
-    }
-    if (l != -1)
-        return l;
-    else
-        return 0;
-}
 
 int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    cin >> n >> k;
-    vector<ll> a(n);
-    for (ll i = 0; i < n; i++)
+    int s, n;
+    cin >> s >> n;
+    vector<PII> a(n);
+    for (int i = 0; i < n; i++)
     {
-        cin >> a[i];
+        cin >> a[i].first >> a[i].second;
     }
-    cout << BS(a) << endl;
+    sort(ALL(a), [](PII a, PII b)
+         { return a.first < b.first; });
+    bool is_ok = true;
+    for (int i = 0; i < n; i++)
+    {
+        if (s > a[i].first)
+        {
+            s += a[i].second;
+        }
+        else
+        {
+            is_ok = false;
+            break;
+        }
+    }
+    cout<<(is_ok?"YES":"NO")<<endl;
     return 0;
 }

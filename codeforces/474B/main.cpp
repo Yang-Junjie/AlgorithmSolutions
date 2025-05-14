@@ -40,29 +40,13 @@ template <typename Container>
 void PrintCon(const Container &cont);
 
 #endif
-ll n, k;
-
-// 给出长度mid的情况下的段数
-ll check(ll l, const vector<ll> &a)
+int BS(int x, const vector<ll> &s)
 {
-    if (l == 0)
-    {
-        return -1;
-    }
-    ll cnt = 0;
-    for (auto i : a)
-    {
-        cnt += i / l;
-    }
-    return cnt;
-}
-ll BS(const vector<ll> &a)
-{
-    ll l = -1, r = MAXV(a, 0, a.size()) + 1;
+    int l = 0, r = s.size() + 1;
     while (l + 1 != r)
     {
-        ll mid = (l + r) / 2;
-        if (check(mid, a) < k)
+        int mid = l + r >> 1;
+        if (s[mid] >= x)
         {
             r = mid;
         }
@@ -71,22 +55,30 @@ ll BS(const vector<ll> &a)
             l = mid;
         }
     }
-    if (l != -1)
-        return l;
-    else
-        return 0;
+    return r;
 }
-
 int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    cin >> n >> k;
-    vector<ll> a(n);
-    for (ll i = 0; i < n; i++)
+    int n;
+    cin >> n;
+    vector<int> a(n + 1, 0);
+    vector<ll> s(n + 1, 0);
+    for (int i = 1; i <= n; i++)
     {
         cin >> a[i];
+        s[i] = s[i - 1] + a[i];
     }
-    cout << BS(a) << endl;
+
+    int m;
+    cin >> m;
+    while (m--)
+    {
+        int x;
+        cin >> x;
+        cout << BS(x, s) << endl;
+    }
+
     return 0;
 }
