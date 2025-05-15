@@ -41,12 +41,33 @@ template<typename Container>
 void PrintCon(const Container& cont);
 
 #endif
-
+const int N = 15;
+bool vis[N];
+int p[N];
+int n,k;
+void dfs(int x){
+    if(x>k){
+        for(int i = 1;i<=k;i++) {
+            cout<<p[i]<<" ";
+        }
+        cout<<endl;
+        return;
+    }
+    for(int i = 1;i<=n;i++){
+        if(!vis[i]){
+           p[x] = i;
+            vis[i] = true; 
+           dfs(x+1);
+            vis[i] = false;
+        } 
+    }
+}
 
 int main(){
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    cout<<"1"<<endl;    
+    cin>>n>>k;
+    dfs(1); 
     
 
     return 0;
