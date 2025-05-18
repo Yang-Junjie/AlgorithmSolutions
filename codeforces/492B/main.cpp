@@ -60,9 +60,9 @@ int main()
     }
     if (a[n - 1] != l)
     {
-        mx = max(mx, l-a[n - 1]);
+        mx = max(mx, l - a[n - 1]);
     }
-    for (int i = 0; i < n-1; i++)
+    for (int i = 0; i < n - 1; i++)
     {
         mx = max(mx, (a[i + 1] - a[i]) / 2);
     }

@@ -10,6 +10,7 @@ using ull = unsigned long long int;
 using PII = pair<int, int>;
 
 #define DEBUG
+
 #ifdef DEBUG
 template <typename Container>
 void PrintCon(const Container &cont)
@@ -31,45 +32,48 @@ void LOG(Args &&...values)
     ((std::cout << "\033[33m" << std::forward<Args>(values) << "\033[0m" << " "), ...);
     std::cout << std::endl;
 }
-
 #else
-
 template <typename... Args>
 void LOG(Args &...args);
+
 template <typename Container>
 void PrintCon(const Container &cont);
-
 #endif
 
-int Left, Right, minn, ans;
-int s[5];
-int a[21][5];
-void dfs(int x, int y)
+void solve()
 {
-    if (x > s[y])
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    for (int i = 0; i < n; i++)
     {
-        minn = min(minn, max(Left, Right));
-        return;
+        cin >> a[i];
     }
-    Left += a[x][y];
-    dfs(x + 1, y);
-    Left -= a[x][y];
-    Right += a[x][y];
-    dfs(x + 1, y);
-    Right -= a[x][y]; 
+    auto check = [&](int x)
+    {
+        int l = 0, r = 0;
+        for (int i = 1; i < n; i++)
+        {
+            int x = abs(a[i]);
+            if (x == abs(a[0]))
+                continue;
+            else if (-x < abs(a[0] && a[0] < x))
+                continue;
+            else if ()
+        }
+    }
 }
+
 int main()
 {
-    cin >> s[1] >> s[2] >> s[3] >> s[4];
-    for (int i = 1; i <= 4; i++)
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int t;
+    cin >> t;
+    while (t--)
     {
-        Left = Right = 0;
-        minn = 19260817;
-        for (int j = 1; j <= s[i]; j++)
-            cin >> a[j][i];
-        dfs(1, i);
-        ans += minn;
+        solve();
     }
-    cout << ans;
+
     return 0;
 }

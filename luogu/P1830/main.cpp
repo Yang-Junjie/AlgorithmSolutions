@@ -41,35 +41,42 @@ void PrintCon(const Container &cont);
 
 #endif
 
-int Left, Right, minn, ans;
-int s[5];
-int a[21][5];
-void dfs(int x, int y)
-{
-    if (x > s[y])
-    {
-        minn = min(minn, max(Left, Right));
-        return;
-    }
-    Left += a[x][y];
-    dfs(x + 1, y);
-    Left -= a[x][y];
-    Right += a[x][y];
-    dfs(x + 1, y);
-    Right -= a[x][y]; 
-}
 int main()
 {
-    cin >> s[1] >> s[2] >> s[3] >> s[4];
-    for (int i = 1; i <= 4; i++)
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int n, m, x, y;
+    cin >> n >> m >> x >> y;
+    vector<vector<pair<int, int>>> a(n, vector<pair<int, int>>(m, {0, 0}));
+    int sum = 0;
+    while (x--)
     {
-        Left = Right = 0;
-        minn = 19260817;
-        for (int j = 1; j <= s[i]; j++)
-            cin >> a[j][i];
-        dfs(1, i);
-        ans += minn;
+        int x1, y1, x2, y2;
+        cin >> x1 >> y1 >> x2 >> y2;
+        
+        sum++;
+        for (int r = x1 - 1; r <= x2 - 1; r++)
+        {
+            for (int c = y1 - 1; c <= y2 - 1; c++)
+            {
+                a[r][c].first++;
+                a[r][c].second = sum;
+            }
+        }
     }
-    cout << ans;
+    while (y--)
+    {
+        int r, c;
+        cin >> r >> c;
+        if (a[r - 1][c - 1].first != 0)
+        {
+            cout << "Y" << ' ' << a[r - 1][c - 1].first << ' ' << a[r - 1][c - 1].second << endl;
+        }
+        else
+        {
+            cout << "N" << endl;
+        }
+    }
+
     return 0;
 }
