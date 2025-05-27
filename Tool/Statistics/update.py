@@ -81,25 +81,50 @@ def plot_activity(csv_path=None):
     plt.figure(figsize=(12, 7))
     markers = ['o', 's', '^', 'd', '*']
     for idx, (platform, data) in enumerate(platforms.items()):
-        # 修改label格式，添加最新数值[14](@ref)
         plt.plot(dates, data, 
                 marker=markers[idx%5], 
+                linewidth=2,  # 增加线宽提高可视性
+                markersize=5, # 增大标记尺寸
                 label=f"{platform} ({data[-1]})" if data else platform)
 
     # 坐标轴优化
     ax = plt.gca()
-    ax.xaxis.set_major_formatter(mdates.DateFormatter('%m-%d'))
-    ax.set_xticks(dates)
-    ax.grid(True)
-    plt.gcf().autofmt_xdate()
+    ax.xaxis.set_major_formatter(mdates.DateFormatter('%m-%d'))  # 保持日期格式
     
+    # 动态设置x轴刻度（核心修改部分）
+    if dates:
+        # 生成基础索引（每隔7天）
+        indices = list(range(0, len(dates), 7))
+        # 强制包含最后一个数据点
+        if not indices or indices[-1] != len(dates)-1:
+            indices.append(len(dates)-1)
+        selected_dates = [dates[i] for i in indices]
+        ax.set_xticks(selected_dates)
+    
+    # 美化设置
+    ax.grid(True, linestyle='--', alpha=0.7)  # 虚线网格
+    plt.gcf().autofmt_xdate()  # 自动旋转日期标签
+    
+    # 添加数据标签（可选增强）
+    for platform, data in platforms.items():
+        last_point = (dates[-1], data[-1])
+        plt.annotate(f'{last_point[1]}', 
+                     xy=last_point,
+                     xytext=(5, 0), 
+                     textcoords='offset points',
+                     ha='left')
+
     # 输出保存
-    plt.title(f"The trend of doing practice questions on the OJ platform(Total Solved:{sum(data[-1] for data in platforms.values())})", fontsize=14)
-    plt.xlabel('Date')
-    plt.ylabel('Number')
-    plt.legend(bbox_to_anchor=(1.05, 1))
+    plt.title(f"The trend of doing practice questions on the OJ platform(Total Solved:{sum(data[-1] for data in platforms.values())})", 
+             fontsize=14, pad=20)  # 增加标题间距
+    plt.xlabel('Date', labelpad=10)
+    plt.ylabel('Number', labelpad=10)
+    plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')  # 优化图例位置
     plt.tight_layout()
-    plt.savefig(os.path.join(img_dir, 'activity.png'))
+    
+    # 保存高清图像
+    plt.savefig(os.path.join(img_dir, 'activity.png'), dpi=300, bbox_inches='tight')
+    plt.close()
 
 
 # ----------------- 主流程 -----------------
