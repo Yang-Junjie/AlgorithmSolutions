@@ -41,34 +41,41 @@ template<typename Container>
 void PrintCon(const Container& cont);
 
 #endif
+const int N = 1e6+10;
+bool q[N];
+bool vis[N];
 bool isPrime(ll x){
-  if(x<2)return false;
-  for(ll i = 2;i<=x/i;i++){
-    if(x%i==0)return false;
-  }
-  return true;
+    if(vis[x])return q[x];
+    if(x<2)return false;
+    for(ll i = 2;i<=x/i;i++){
+    if(x%i==0){
+        q[x] = false;
+        vis[x] = true;
+        return false;
+        }
+    }
+    q[x] = true;
+    vis[x] = true;
+    return true;
 }
 
 int main(){
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     int n;
-    cin>>n;
+    scanf("%d",&n);
     while(n--){
         ll x;
-        cin>>x;
+        scanf("%lld",&x);
         ll sq = sqrt(x);
-        if(sq*sq==x){
-            if(isPrime(sq)){
-              cout<<"YES"<<endl;
-            }else{
-              cout<<"NO"<<endl;
-            } 
+        if(sq*sq==x&&isPrime(sq)){
+            printf("YES\n"); 
         }
         else{
-           cout<<"NO"<<endl;
+           printf("NO\n");
         }
     }
 
     return 0;
 }
+

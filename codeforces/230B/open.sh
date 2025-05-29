@@ -1,1 +1,0 @@
-termux-open main.cpp
