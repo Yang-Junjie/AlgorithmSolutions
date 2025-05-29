@@ -82,7 +82,7 @@ void solve()
                 r--;
             }
             sum_r += current_sum;
-            last_sum = current_sum;
+            last_sum = current_sum; 
             flag = true;
             cnt++;
         }
