@@ -39,26 +39,39 @@ void LOG(Args &...args);
 template <typename Container>
 void PrintCon(const Container &cont);
 #endif
+
 void solve()
 {
-
-    ll w, h;
-    cin >> w >> h;
-    ll ans = 0;
-    for (int i = 0; i < 4; i++)
+    int n, m;
+    cin >> n >> m;
+    vector<PII> a(m);
+    for (int i = 0; i < m; i++)
     {
-        ll k;
-        cin >> k;
-        vector<ll> a(k);
-        for (int j = 0; j < k; j++)
-        {
-            cin >> a[j];
-        }
-        sort(a.begin(), a.end());
-        ll current = (a.back() - a.front()) * (i < 2 ? h : w);
-        ans = max(ans, current);
+        int x;
+        cin >> x;
+        a[i].first = x / 100;
+        a[i].second = x % 100;
     }
-    cout << ans << endl;
+    sort(ALL(a));
+    for (int i = 0; i < m; i++)
+    {
+        a[i].first = a[i].first * 100 + a[i].second;
+    }
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 1; j <= 3; j++)
+        {
+            if (i & 1)
+            {
+                cout << a[i / 2].first << ' ' << a[m - 1 - i / 2].first <<' ';
+            }
+            else
+            {
+                cout << a[m - 1 - i / 2].first << ' ' << a[i / 2].first << ' ';
+            }
+        }
+        cout << endl;
+    }
 }
 
 int main()

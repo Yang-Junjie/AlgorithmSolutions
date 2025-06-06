@@ -39,26 +39,12 @@ void LOG(Args &...args);
 template <typename Container>
 void PrintCon(const Container &cont);
 #endif
+
 void solve()
 {
-
-    ll w, h;
-    cin >> w >> h;
-    ll ans = 0;
-    for (int i = 0; i < 4; i++)
-    {
-        ll k;
-        cin >> k;
-        vector<ll> a(k);
-        for (int j = 0; j < k; j++)
-        {
-            cin >> a[j];
-        }
-        sort(a.begin(), a.end());
-        ll current = (a.back() - a.front()) * (i < 2 ? h : w);
-        ans = max(ans, current);
-    }
-    cout << ans << endl;
+    ll x;
+    cin >> x;
+    cout << 3 + static_cast<ll>(log(x) / log(2)) * 2 << endl;
 }
 
 int main()
