@@ -42,33 +42,24 @@ void PrintCon(const Container &cont);
 
 void solve()
 {
-    int n, m;
-    cin >> n >> m;
-    vector<int> f(n + 1, 0);
-
-    f[1] = 1;
-    f[2] = 2;
-
-    for (int i = 3; i <= n; i++)
+    ll n, k;
+    cin >> n >> k;
+    --k;
+    for (int i = 1; i <= k; i++)
     {
-        f[i] = f[i - 1] + f[i - 2];
-    }
-   
-    while (m--)
-    {
-        ll w, l, h;
-        cin >> w >> l >> h;
-
-        if (min(w, min(l, h)) >= f[n] && max(w, max(l, h)) >= f[n] + f[n - 1])
+        ll mx = 0, mn = 10;
+        ll m = n;
+        while (m > 0)
         {
-            cout << 1;
+            mx = max(mx, m % 10);
+            mn = min(mn, m % 10);
+            m /= 10;
         }
-        else
-        {
-            cout << 0;
-        }
+        n += mx * mn;
+        if (mn == 0)
+            break;
     }
-    cout << endl;
+    cout << n << endl;
 }
 
 int main()

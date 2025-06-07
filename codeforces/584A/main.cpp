@@ -10,7 +10,6 @@ using ull = unsigned long long int;
 using PII = pair<int, int>;
 
 #define DEBUG
-
 #ifdef DEBUG
 template <typename Container>
 void PrintCon(const Container &cont)
@@ -32,55 +31,39 @@ void LOG(Args &&...values)
     ((std::cout << "\033[33m" << std::forward<Args>(values) << "\033[0m" << " "), ...);
     std::cout << std::endl;
 }
+
 #else
+
 template <typename... Args>
 void LOG(Args &...args);
-
 template <typename Container>
 void PrintCon(const Container &cont);
+
 #endif
-
-void solve()
-{
-    int n, m;
-    cin >> n >> m;
-    vector<int> f(n + 1, 0);
-
-    f[1] = 1;
-    f[2] = 2;
-
-    for (int i = 3; i <= n; i++)
-    {
-        f[i] = f[i - 1] + f[i - 2];
-    }
-   
-    while (m--)
-    {
-        ll w, l, h;
-        cin >> w >> l >> h;
-
-        if (min(w, min(l, h)) >= f[n] && max(w, max(l, h)) >= f[n] + f[n - 1])
-        {
-            cout << 1;
-        }
-        else
-        {
-            cout << 0;
-        }
-    }
-    cout << endl;
-}
 
 int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    int t;
-    cin >> t;
-    while (t--)
+    int n, t;
+    cin >> n >> t;
+    if (t == 10)
     {
-        solve();
+        if (n == 1)
+            cout << -1;
+        else
+        {
+            cout << 1;
+            for (int i = 1; i < n; i++)
+                cout << 0;
+        }
+        cout << endl;
+        return 0;
     }
+    cout << t;
+    for (int i = 1; i < n; i++)
+        cout << 0;
+    cout << endl;
 
     return 0;
 }
