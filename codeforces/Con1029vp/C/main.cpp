@@ -40,12 +40,30 @@ template <typename Container>
 void PrintCon(const Container &cont);
 #endif
 
-
 void solve()
 {
-    double n;
+    int n;
     cin >> n;
-    cout << fixed << setprecision(9) << 1.0 / tan( 3.14159265358979323846 / 2 / n) << endl;
+    vector<int> a(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> a[i];
+    }
+    int ans = 1;
+    set<int> s, t;
+    s.insert(a[0]);
+    for (int i = 1; i < n; i++)
+    {
+        t.insert(a[i]);
+        s.erase(a[i]);
+        if (s.empty())
+        {
+            ans++;
+            s = t;
+            t.clear();
+        }
+    }
+    cout << ans << endl;
 }
 
 int main()
